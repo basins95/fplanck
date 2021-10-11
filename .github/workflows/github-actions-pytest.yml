@@ -17,4 +17,4 @@ jobs:
         python setup.py install
     - name: Test with pytest
       run: |
-        srun --account=rcc-staff -n1 pytest /home/japarker/projects/fplanck/tests
+        srun --account=rcc-staff -n1 pytest tests
