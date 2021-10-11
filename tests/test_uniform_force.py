@@ -17,4 +17,3 @@ def test_uniform_periodic():
     current = sim.probability_current(steady)
     dp = np.gradient(steady)
     assert np.allclose(dp, 0, atol=1e-15, rtol=0), 'probability current is uniform'
-    assert 1 == 2, 'intentional fail'
