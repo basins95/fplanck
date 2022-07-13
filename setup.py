@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-NAME = 'fplanck'
+NAME = 'fp_lna'
 DESCRIPTION = "Solve the Fokker-Planck equation in N dimensions"
 URL = 'https://github.com/johnaparker/fplanck'
 EMAIL = 'japarker@uchicago.edu'

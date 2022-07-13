@@ -4,15 +4,14 @@ from scipy.linalg import expm
 from scipy import sparse
 from scipy.sparse.linalg import expm, eigs, expm_multiply
 import enum
-import fplanck
-from fplanck.utility import value_to_vector, slice_idx 
+import fplanck_fmod
+from fplanck_fmod.utility import value_to_vector, slice_idx 
 
 class fokker_planck:
     def __init__(self, *, temperature, drag, extent, resolution,
-            potential=None, force=None, boundary=fplanck.boundary.reflecting):
+            potential=None, force=None, boundary=fplanck_fmod.boundary.reflecting):
         """
         Solve the Fokker-Planck equation
-
         Arguments:
             temperature     temperature of the surrounding bath (scalar or vector)
             drag            drag coefficient (scalar or vector or function)
@@ -92,13 +91,13 @@ class fokker_planck:
                 self.Lt[i] = self.diffusion[i]/self.resolution[i]**2
 
         for i in range(self.ndim):
-            if self.boundary[i] == fplanck.boundary.reflecting:
+            if self.boundary[i] == fplanck_fmod.boundary.reflecting:
                     idx = slice_idx(i, self.ndim, -1)
                     self.Rt[i][idx] = 0
 
                     idx = slice_idx(i, self.ndim, 0)
                     self.Lt[i][idx] = 0
-            elif self.boundary[i] == fplanck.boundary.periodic:
+            elif self.boundary[i] == fplanck_fmod.boundary.periodic:
                     idx = slice_idx(i, self.ndim, -1)
                     dU = -self.force_values[i][idx]*self.resolution[i]
                     self.Rt[i][idx] = self.diffusion[i][idx]/self.resolution[i]**2*np.exp(-self.beta[i]*dU/2)
@@ -161,7 +160,6 @@ class fokker_planck:
 
     def propagate(self, initial, time, normalize=True, dense=False):
         """Propagate an initial probability distribution in time
-
         Arguments:
             initial      initial probability density function
             time         amount of time to propagate
@@ -181,7 +179,6 @@ class fokker_planck:
 
     def propagate_interval(self, initial, tf, Nsteps=None, dt=None, normalize=True):
         """Propagate an initial probability distribution over a time interval, return time and the probability distribution at each time-step
-
         Arguments:
             initial      initial probability density function
             tf           stop time (inclusive)

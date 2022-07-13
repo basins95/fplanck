@@ -2,7 +2,7 @@
 pre-defined convenience potential functions
 """
 import numpy as np
-from fplanck.utility import value_to_vector
+from fplanck_fmod.utility import value_to_vector
 from scipy.interpolate import RegularGridInterpolator
 
 def harmonic_potential(center, k):
